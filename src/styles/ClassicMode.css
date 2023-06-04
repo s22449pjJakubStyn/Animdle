@@ -72,9 +72,14 @@
 .CharacterItem {
     display: flex;
     align-items: center;
-    width: 40px;
+    width: auto;
     height: auto;
     margin-bottom: 10px;
+}
+.CharacterItem:hover {
+    background-color: grey;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .CharacterItemContent {
@@ -98,9 +103,52 @@
     padding: 10px;
     border-radius: 5px;
 }
+.PlayAgainButton{
+    background-color: #471AA0;
+    border: 3px solid #fcf425;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: "Luckiest Guy";
+    color: white;
+}
+.PlayAgainButton:hover {
+    transform: scale(1.04);
+}
+.InfoSquaresContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: auto;
+}
 
+.InfoSquare{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
 
+.InfoSquareRed  {
+    background-color: #ff0000;
+}
 
+.InfoSquareGreen  {
+    background-color: #00ff00;
+}
 
-
-
+.InfoSquareValue {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+.GuessImage {
+    width: 90px;
+    height: 90px;
+}

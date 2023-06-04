@@ -1,35 +1,35 @@
 [
-    {
-      "id": 1,
-      "name": "Ichigo",
-      "anime": "Bleach",
-      "gender": "Male",
-      "priority": "Main Character",
-      "species": ["Human", "Shinigami"],
-      "age": 17,
-      "status": "Alive",
-      "image": "/images/ichigo.png"
-    },
-    {
-      "id": 2,
-      "name": "Naruto",
-      "anime": "Naruto",
-      "gender": "Male",
-      "priority": "Main Character",
-      "species": ["Human", "Ninja"],
-      "age": 16,
-      "status": "Alive",
-      "image": "/images/naruto.png"
-    },
+  {
+    "id": 1,
+    "name": "Ichigo",
+    "anime": "Bleach",
+    "gender": "Male",
+    "priority": "Main Character",
+    "species": "Human, Shinigami",
+    "age": "17",
+    "status": "Alive",
+    "image": "ichigo.png"
+  },
+  {
+    "id": 2,
+    "name": "Naruto",
+    "anime": "Naruto",
+    "gender": "Male",
+    "priority": "Main Character",
+    "species": "Human, Ninja",
+    "age": "16",
+    "status": "Alive",
+    "image": "naruto.png"
+  },
   {
     "id": 3,
     "name": "Ishida",
     "anime": "Bleach",
     "gender": "Male",
     "priority": "Main Character",
-    "species": ["Human", "Quincy"],
-    "age": 17,
+    "species": "Human, Quincy",
+    "age": "17",
     "status": "Alive",
-    "image": "/images/ishida.png"
+    "image": "ishida.png"
   }
 ]
