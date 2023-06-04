@@ -152,3 +152,14 @@
     width: 90px;
     height: 90px;
 }
+.Register {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+}
+.Register:hover {
+    transform: scale(1.30);
+    transition: transform 0.3s ease;
+}

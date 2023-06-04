@@ -1,0 +1,31 @@
+.LoginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.LoginSubmit {
+    width: 200px;
+    height: 40px;
+    border: #471AA0 2px solid;
+    background-color: #fcf425;
+    color: #471AA0;
+    font-family: "Luckiest Guy";
+    cursor: pointer;
+}
+.DontHaveAccount {
+    color: #471AA0;
+    font-family: "Luckiest Guy";
+}
+.Register {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+}
+.Register:hover {
+    transform: scale(1.30);
+    transition: transform 0.3s ease;
+}

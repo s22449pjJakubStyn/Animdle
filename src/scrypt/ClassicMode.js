@@ -8,6 +8,7 @@ import form_button from '../img/form_button.png';
 import shuriken_button from '../img/shuriken_button.png';
 import { Link } from 'react-router-dom';
 import characters from '../characters.json';
+import register_logo from "../img/register_logo.png";
 
 const ClassicMode = () => {
     const [randomCharacter, setRandomCharacter] = useState(null);
@@ -314,6 +315,9 @@ const ClassicMode = () => {
             <div className="Background" />
             <Link to="/">
                 <img src={animdle_logo2} className="Logo" alt="logo" />
+            </Link>
+            <Link to="/register">
+                <img src={register_logo} className="Register" alt="register_logo" />
             </Link>
             <div className="InformationContainer">
                 <img
