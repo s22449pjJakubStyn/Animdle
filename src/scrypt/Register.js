@@ -69,6 +69,7 @@ return (
 
                 <div>
                     <label htmlFor="email">Email:</label>
+
                     <Field type="email" id="email" name="email" />
                     <ErrorMessage name="email" component="div" />
                 </div>
