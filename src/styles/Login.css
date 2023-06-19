@@ -29,3 +29,17 @@
     transform: scale(1.30);
     transition: transform 0.3s ease;
 }
+.LoggedSuccess {
+    margin-bottom: 5px;
+    color: #471AA0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-family: "Luckiest Guy";
+    font-size: 30px;
+}
+.IsLogged{
+    margin-bottom: 5px;
+    color: #471AA0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-family: "Luckiest Guy";
+    font-size: 30px;
+}
