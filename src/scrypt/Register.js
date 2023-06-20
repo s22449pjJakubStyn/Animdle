@@ -21,7 +21,7 @@ const Register = () => {
     const [error, setError] = useState(null);
 
     const handleSubmit = async (values, { resetForm }) => {
-        const { email, password, fName, lName, points, nickName } = values;
+        const { email, password, fName, lName, points, nickName, level } = values;
 
         try {
             // Rejestracja użytkownika w Firebase Authentication
@@ -39,6 +39,7 @@ const Register = () => {
                 lastName: lName,
                 points: points,
                 nickName: nickName,
+                level: level
                 // inne dane użytkownika, np. imię, nazwisko itp.
             };
             await set(userRef, newUser);
@@ -91,7 +92,7 @@ const Register = () => {
                     {error && <p className="ErrorMsg">{error}</p>}
                     <div className="RegisterContainer">
                         <Formik
-                            initialValues={{ email: '', password: '', fName: '', lName: '', points: 0, nickName: '' }}
+                            initialValues={{ email: '', password: '', fName: '', lName: '', points: 0, nickName: '', level: 1 }}
                             validationSchema={validationSchema}
                             onSubmit={handleSubmit}
                         >

@@ -45,10 +45,17 @@ const ClassicMode = () => {
         }
         const [userAnswer, setUserAnswer] = useState([]);
         const [submittedCharacters, setSubmittedCharacters] = useState([]);
-        const {isLoggedIn, setIsLoggedIn, currentUser, currentPoints} = useContext(AuthContext);
+        const {isLoggedIn, setIsLoggedIn, currentUser, currentPoints, currentNick, currentLevel} = useContext(AuthContext);
 
         const [isMenuOpen, setIsMenuOpen] = useState(false);
         const [isYourPointsOpen, setIsYourPointsOpen] = useState(false);
+
+    const levelThresholds = [0, 0, 300, 700, 1200]; // Przykładowe progi punktów dla poziomów 0, 1, 2, 3
+
+    // Obliczanie procentowego postępu
+    const currentThreshold = levelThresholds[currentLevel]; // Prog punktów dla aktualnego poziomu
+    const nextThreshold = levelThresholds[currentLevel + 1]; // Prog punktów dla następnego poziomu
+    const progress = (currentPoints - currentThreshold) / (nextThreshold - currentThreshold) * 100;
 
         const handleMenuClick = () => {
             setIsMenuOpen(!isMenuOpen);
@@ -280,6 +287,32 @@ const ClassicMode = () => {
                 unlockAchievement();
             }
         }, [currentPoints]);
+
+    async function upgradeLevel() {
+        try {
+            const database = getDatabase();
+            const userRef = ref(database, `users/${currentUser.uid}`);
+            const snapshot = await get(userRef);
+            const userData = snapshot.val();
+            let updatedLevel = userData.level || 1;
+
+            await update(userRef, { level: updatedLevel+1 });
+        } catch (error) {
+            console.error('Błąd podczas aktualizacji punktów użytkownika w bazie danych', error);
+        }
+    }
+
+    useEffect(() => {
+        if (currentPoints >= 300 && currentLevel <2) {
+            upgradeLevel();
+        }
+        else if (currentPoints >= 700 && currentLevel <3) {
+            upgradeLevel();
+        }
+        else if (currentPoints >= 1200 && currentLevel <4) {
+            upgradeLevel();
+        }
+    }, [currentPoints]);
 
         const filterCharacters = (text) => {
             const filteredList = characters.filter(
@@ -548,8 +581,14 @@ const ClassicMode = () => {
                 )}
                 {isLoggedIn ? (
                     <div>
+                        <div className="LevelContainer">
+                            <span className="ProgressTitle">Progress: {currentPoints} / {nextThreshold}</span>
+                            <div className="BarLook">
+                                <div className="BarProgress" style={{ width: `${progress}%` }} />
+                            </div>
+                        </div>
                         <button className="UserName" onClick={handleMenuClick}>
-                            Ohayo {currentUser.email}
+                            Ohayo {currentNick}
                         </button>
                         {isMenuOpen && (
                             <div className="Menu">
@@ -559,6 +598,8 @@ const ClassicMode = () => {
                                 {isYourPointsOpen && (
                                     <div className="YourPoints">Points: {currentPoints}</div>
                                 )}
+                                <div className="YourPoints">Level: {currentLevel}</div>
+                                <Link to="/account"><button className="MenuItem"> Account</button></Link>
                                 <Link to="/ranking">
                                     <button className="MenuItem"> Players Ranking</button>
                                 </Link>

@@ -14,7 +14,7 @@ import {getDatabase, ref, onValue, get, update} from "firebase/database";
 
 const Login = () => {
     const [error, setError] = useState(null);
-    const {isLoggedIn, setIsLoggedIn, setCurrentUser, setCurrentPoints} = useContext(AuthContext);
+    const {isLoggedIn, setIsLoggedIn, setCurrentUser, setCurrentPoints, setCurrentNick, setCurrentName, setCurrentSurname, setCurrentPassword, setCurrentLevel} = useContext(AuthContext);
 
 
     const handleSubmit = async (values, {resetForm}) => {
@@ -35,8 +35,13 @@ const Login = () => {
             setIsLoggedIn(true);
             onValue(userRef, (snapshot) => {
                 const userData = snapshot.val();
-                if (userData && userData.points) {
-                    setCurrentPoints(userData.points);
+                if (userData) {
+                    setCurrentPoints(userData.points || 0);
+                    setCurrentNick(userData.nickName);
+                    setCurrentName(userData.firstName);
+                    setCurrentSurname(userData.lastName);
+                    setCurrentPassword(userData.password);
+                    setCurrentLevel(userData.level)
                 }
             });
             resetForm(); // Zresetuj formularz po udanej rejestracji

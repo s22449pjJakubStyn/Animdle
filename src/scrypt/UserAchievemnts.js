@@ -8,10 +8,17 @@ import { AuthContext } from './AuthContext';
 import { getDatabase, ref, onValue } from 'firebase/database';
 
 const UserAchievemnts = () => {
-    const { isLoggedIn, setIsLoggedIn,  currentUser, currentPoints } = useContext(AuthContext);
+    const { isLoggedIn, setIsLoggedIn,  currentUser, currentPoints, currentNick, currentLevel } = useContext(AuthContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isYourPointsOpen, setIsYourPointsOpen] = useState(false);
     const [achievements, setAchievements] = useState([]);
+
+    const levelThresholds = [0, 0, 300, 700, 1200]; // Przykładowe progi punktów dla poziomów 0, 1, 2, 3
+
+    // Obliczanie procentowego postępu
+    const currentThreshold = levelThresholds[currentLevel]; // Prog punktów dla aktualnego poziomu
+    const nextThreshold = levelThresholds[currentLevel + 1]; // Prog punktów dla następnego poziomu
+    const progress = (currentPoints - currentThreshold) / (nextThreshold - currentThreshold) * 100;
 
     useEffect(() => {
         const fetchAchievements = async () => {
@@ -48,6 +55,12 @@ const UserAchievemnts = () => {
             </Link>
             {isLoggedIn ? (
                     <div>
+                        <div className="LevelContainer">
+                            <span className="ProgressTitle">Progress: {currentPoints} / {nextThreshold}</span>
+                            <div className="BarLook">
+                                <div className="BarProgress" style={{ width: `${progress}%` }} />
+                            </div>
+                        </div>
                         <h2>User Achievements</h2>
                         <div className="table-wrapper">
                             <table className="fl-table">
@@ -71,7 +84,7 @@ const UserAchievemnts = () => {
                         </div>
 
                         <button className="UserName" onClick={handleMenuClick}>
-                        Ohayo {currentUser.email}
+                            Ohayo {currentNick}
                     </button>
                     {isMenuOpen && (
                         <div className="Menu">
@@ -81,6 +94,8 @@ const UserAchievemnts = () => {
                             {isYourPointsOpen && (
                                 <div className="YourPoints">Points: {currentPoints}</div>
                             )}
+                            <div className="YourPoints">Level: {currentLevel}</div>
+                            <Link to="/account"><button className="MenuItem"> Account</button></Link>
                             <Link to="/ranking"><button className="MenuItem"> Players Ranking</button></Link>
                         </div>
                     )}

@@ -7,6 +7,7 @@ import Register from './Register';
 import Login from './Login';
 import PlayersRanking from './PlayersRanking';
 import UserAchievemnts from "./UserAchievemnts";
+import UserAccount from "./UserAccount";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/ranking" element={<PlayersRanking />} />
                 <Route path="/achievements" element={<UserAchievemnts />} />
+                <Route path="/account" element={<UserAccount />} />
             </Routes>
         </Router>
         </AuthProvider>

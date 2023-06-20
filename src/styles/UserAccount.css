@@ -1,0 +1,20 @@
+.UserData{
+    font-size: 24px;
+    color: #471aa0;
+}
+.DeleteButtonDiv{
+    display: grid;
+    placeItems: center;
+    max-widthwidth: 50px;
+    border: #471AA0 2px solid;
+    background-color: #fcf425;
+    color: #471AA0;
+    font-family: "Luckiest Guy";
+    font-size: 40px;
+}
+.DeleteButton{
+    background-color: transparent;
+    color: #471AA0;
+    font-family: "Luckiest Guy";
+    font-size: 40px;
+}
