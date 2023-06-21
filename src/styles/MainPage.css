@@ -23,12 +23,13 @@
 .GamePannelContainer {
     position: relative;
     display: inline-block;
+    margin-bottom: 20px;
 }
+
 .GamePannelContainer:hover {
     transform: scale(1.05);
     transition: transform 0.3s ease;
 }
-
 
 .GamePannelText {
     position: absolute;
@@ -158,4 +159,5 @@
     z-index: 999;
     padding: 0;
 }
+
 

@@ -97,9 +97,10 @@ const UserAchievemnts = () => {
                             <div className="YourPoints">Level: {currentLevel}</div>
                             <Link to="/account"><button className="MenuItem"> Account</button></Link>
                             <Link to="/ranking"><button className="MenuItem"> Players Ranking</button></Link>
+                            <Link to="/shop"><button className="MenuItem"> Shop</button></Link>
                         </div>
                     )}
-                    <button onClick={handleLogout} className="Logout">Wyloguj się</button>
+                    <button onClick={handleLogout} className="Logout">Logout</button>
                 </div>
             ) : (
                 <div>

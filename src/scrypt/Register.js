@@ -44,7 +44,7 @@ const Register = () => {
             };
             await set(userRef, newUser);
 
-            toast.success("Rejestracja zakończona sukcesem!");
+            toast.success("Successful registration!");
             resetForm(); // Zresetuj formularz po udanej rejestracji
         } catch (error) {
             console.error(error);
@@ -53,26 +53,26 @@ const Register = () => {
     };
 
     const validationSchema = Yup.object({
-        email: Yup.string().email("Niepoprawny adres email").required("Pole jest wymagane"),
+        email: Yup.string().email("Incorrect email address").required("Pole jest wymagane"),
         password: Yup.string()
-            .required("Pole jest wymagane")
-            .min(8, "Hasło musi mieć co najmniej 8 znaków")
+            .required("The field is required")
+            .min(8, "The password must be at least 8 characters long")
             .matches(
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>])(?!.*\s).{8,}$/,
-                "Hasło musi zawierać co najmniej 1 małą literę, 1 dużą literę, 1 cyfrę i 1 znak specjalny"
+                "The password must contain at least 1 lowercase letter, 1 uppercase letter, 1 number and 1 special character"
             ),
         fName: Yup.string()
-            .required("Pole jest wymagane")
-            .min(3, "Imię musi mieć co najmniej 3 znaki")
-            .max(20, "Imię może mieć maksymalnie 20 znaków"),
+            .required("The field is required")
+            .min(3, "First name must be at least 3 characters long")
+            .max(20, "The name can be up to 20 characters long"),
         lName: Yup.string()
-            .required("Pole jest wymagane")
-            .min(3, "Nazwisko musi mieć co najmniej 3 znaki")
-            .max(20, "Nazwisko może mieć maksymalnie 20 znaków"),
+            .required("The field is required")
+            .min(3, "Last name must be at least 3 characters long")
+            .max(20, "The last name can be up to 20 characters long"),
         nickName: Yup.string()
-            .required("Pole jest wymagane")
-            .min(3, "Nick musi mieć co najmniej 3 znaki")
-            .max(30, "Nick może mieć maksymalnie 30 znaków"),
+            .required("The field is required")
+            .min(3, "Nick must be at least 3 characters long")
+            .max(30, "Nickname can be up to 30 characters long"),
     });
 
     return (
@@ -88,7 +88,7 @@ const Register = () => {
                     <Link to="/register">
                         <img src={register_logo} className="Register" alt="register_logo" />
                     </Link>
-                    <h2 className="Title">Rejestracja</h2>
+                    <h2 className="Title">Registration</h2>
                     {error && <p className="ErrorMsg">{error}</p>}
                     <div className="RegisterContainer">
                         <Formik
@@ -98,28 +98,28 @@ const Register = () => {
                         >
                             {({ resetForm }) => (
                                 <Form className="StyledForm">
-                                    <Field type="email" placeholder="Adres email" name="email" className="InputField" />
+                                    <Field type="email" placeholder="Email" name="email" className="InputField" />
                                     <ErrorMessage name="email" component="div" className="ErrorMsgField" />
 
-                                    <Field type="password" placeholder="Hasło" name="password" className="InputField" />
+                                    <Field type="password" placeholder="Password" name="password" className="InputField" />
                                     <ErrorMessage name="password" component="div" className="ErrorMsgField" />
 
-                                    <Field type="text" placeholder="Imię" name="fName" className="InputField" />
+                                    <Field type="text" placeholder="Name" name="fName" className="InputField" />
                                     <ErrorMessage name="fName" component="div" className="ErrorMsgField" />
 
-                                    <Field type="text" placeholder="Nazwisko" name="lName" className="InputField" />
+                                    <Field type="text" placeholder="Surname" name="lName" className="InputField" />
                                     <ErrorMessage name="lName" component="div" className="ErrorMsgField" />
                                     <Field type="text" placeholder="Nick" name="nickName" className="InputField" />
                                     <ErrorMessage name="nickName" component="div" className="ErrorMsgField" />
 
                                     <button type="submit" className="RegisterSubmit">
-                                        Zarejestruj się
+                                        Register
                                     </button>
                                 </Form>
                             )}
                         </Formik>
                         <Link to="/login">
-                            <p className="Login">Masz już konto? Zaloguj się!</p>
+                            <p className="Login">Already have an account? Log in!</p>
                         </Link>
                     </div>
                 </div>

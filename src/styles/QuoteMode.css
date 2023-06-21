@@ -1,0 +1,10 @@
+.QuoteDescription {
+    position: absolute;
+    top: 44%;
+    left: 8%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: lightgray;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-family: "Luckiest Guy";
+}
