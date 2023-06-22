@@ -6,12 +6,15 @@ import register_logo from '../img/register_logo.png';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import { getDatabase, ref, onValue } from 'firebase/database';
+import setting from "../img/setting.png";
 
 const UserAchievemnts = () => {
     const { isLoggedIn, setIsLoggedIn,  currentUser, currentPoints, currentNick, currentLevel } = useContext(AuthContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isYourPointsOpen, setIsYourPointsOpen] = useState(false);
     const [achievements, setAchievements] = useState([]);
+
+    const [isPanelVisible, setIsPanelVisible] = useState(false);
 
     const levelThresholds = [0, 0, 300, 700, 1200]; // Przykładowe progi punktów dla poziomów 0, 1, 2, 3
 
@@ -47,12 +50,27 @@ const UserAchievemnts = () => {
     const handleLogout = () => {
         setIsLoggedIn(false);
     };
+    const togglePanel = () => {
+        setIsPanelVisible(!isPanelVisible);
+    };
+
     return (
         <div className="App">
             <div className="Background" />
             <Link to="/">
                 <img src={animdle_logo2} className="Logo" alt="logo" />
             </Link>
+            <div className="RulesButton">
+                <img src={setting} className="" alt="Settings" onClick={togglePanel}/>
+                {isPanelVisible && (
+                    <div className="RulesPanel">
+                        Legend:
+                        <br/><br/>⬛️ mean you haven't unlocked this achievement yet
+                        <br/><br/>🟩 mean you have unlocked this achievement
+                        <br/><br/>Enjoy ❤️
+                    </div>
+                )}
+            </div>
             {isLoggedIn ? (
                     <div>
                         <div className="LevelContainer">

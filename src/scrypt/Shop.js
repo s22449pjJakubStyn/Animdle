@@ -6,12 +6,15 @@ import animdle_logo2 from '../img/animdle_logo2.png';
 import register_logo from '../img/register_logo.png';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
+import setting from "../img/setting.png";
 
 const Shop = (onBackgroundChange) => {
     const { isLoggedIn, setIsLoggedIn, currentPoints, currentNick, currentLevel } = useContext(AuthContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isYourPointsOpen, setIsYourPointsOpen] = useState(false);
     const [selectedBackground, setSelectedBackground] = useState(null);
+
+    const [isPanelVisible, setIsPanelVisible] = useState(false);
 
     const handleMenuClick = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -24,7 +27,11 @@ const Shop = (onBackgroundChange) => {
         setIsLoggedIn(false);
     };
 
-    const levelThresholds = [0, 0, 300, 700, 1200]; // Przykładowe progi punktów dla poziomów 0, 1, 2, 3
+    const togglePanel = () => {
+        setIsPanelVisible(!isPanelVisible);
+    };
+
+    const levelThresholds = [0, 0, 300, 700, 1200]; // Przykładowe progi punktów dla poziomów 0, 1, 2, 3, 4
 
     // Obliczanie procentowego postępu
     const currentThreshold = levelThresholds[currentLevel]; // Prog punktów dla aktualnego poziomu
@@ -42,9 +49,18 @@ const Shop = (onBackgroundChange) => {
             <Link to="/">
                 <img src={animdle_logo2} className="Logo" alt="logo" />
             </Link>
+            <div className="RulesButton">
+                <img src={setting} className="" alt="Settings" onClick={togglePanel}/>
+                {isPanelVisible && (
+                    <div className="RulesPanel">
+                        Level up to unlock exclusive items
+                        <br/><br/>Enjoy ❤️
+                    </div>
+                )}
+            </div>
             {isLoggedIn ? (
                 <div>
-                    <h2>Background Shop</h2>
+                    <h2>Exclusive Content</h2>
                     <div className="BackgroundList">
                         {availableBackgrounds.map((background) => (
                             <div

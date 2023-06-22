@@ -11,12 +11,17 @@ import "../styles/MainPage.css";
 import "../styles/Login.css";
 import register_logo from "../img/register_logo.png";
 import {getDatabase, ref, onValue, get, update} from "firebase/database";
+import setting from "../img/setting.png";
 
 
 const Login = () => {
     const [error, setError] = useState(null);
     const {isLoggedIn, setIsLoggedIn, setCurrentUser, setCurrentPoints, setCurrentNick, setCurrentName, setCurrentSurname, setCurrentPassword, setCurrentLevel} = useContext(AuthContext);
 
+    const [isPanelVisible, setIsPanelVisible] = useState(false);
+    const togglePanel = () => {
+        setIsPanelVisible(!isPanelVisible);
+    };
     const handleSubmit = async (values, {resetForm}) => {
         const {email, password} = values;
 
@@ -62,6 +67,18 @@ const Login = () => {
             <Link to="/">
                 <img src={animdle_logo2} className="Logo" alt="logo"/>
             </Link>
+            <div className="RulesButton">
+                <img src={setting} className="" alt="Settings" onClick={togglePanel}/>
+                {isPanelVisible && (
+                    <div className="RulesPanel">
+                        To correct login make sure that:
+                        <br/>-You have created an account on our website
+                        <br/>-Your email and password are correct
+                        <br/>-You don't have caps lock on
+                        <br/><br/>Enjoy ❤️
+                    </div>
+                )}
+            </div>
             {isLoggedIn ? (
                 <div className="IsLogged"> Logged in, go to the home page</div>
             ) : (

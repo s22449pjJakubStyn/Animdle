@@ -159,5 +159,31 @@
     z-index: 999;
     padding: 0;
 }
-
+footer{
+    font-size: 14px;
+    margin-top: 80px;
+    color: #471aa0;
+    text-align: center;
+}
+.Social{
+    width: 80px;
+    height: 70px;
+    margin-right: 80px;
+    margin-top: 160px;
+}
+.Social:hover{
+    transform: scale(1.10);
+    transition: transform 0.3s ease;
+}
+.RulesButton{
+    position:fixed;
+    right:5%;
+    top:20%;
+}
+.RulesPanel{
+    border: #fcf425 5px solid;
+    background-color: #471aa0;
+    color: white;
+    max-width: 250px;
+}
 

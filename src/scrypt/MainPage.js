@@ -5,13 +5,17 @@ import animdle_logo2 from '../img/animdle_logo2.png';
 import register_logo from '../img/register_logo.png';
 import game_pannel2 from '../img/game_pannel2.png';
 import game_pannel3 from '../img/game_pannel3.png';
+import git from '../img/git.png';
+import linked from '../img/linked.png';
 import {Link} from 'react-router-dom';
 import {AuthContext} from './AuthContext';
+import setting from "../img/setting.png";
 
 const MainPage = () => {
     const {isLoggedIn, setIsLoggedIn, currentPoints, currentNick, currentLevel} = useContext(AuthContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isYourPointsOpen, setIsYourPointsOpen] = useState(false);
+    const [isPanelVisible, setIsPanelVisible] = useState(false);
 
     const handleMenuClick = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -22,6 +26,10 @@ const MainPage = () => {
 
     const handleLogout = () => {
         setIsLoggedIn(false);
+    };
+
+    const togglePanel = () => {
+        setIsPanelVisible(!isPanelVisible);
     };
 
 
@@ -52,7 +60,30 @@ const MainPage = () => {
                     <div className="GamePannelDescription">Guess with most popular anime quotes</div>
                 </div>
             </Link>
-
+            <div className="RulesButton">
+                <img src={setting} className="" alt="Settings" onClick={togglePanel}/>
+                {isPanelVisible && (
+                    <div className="RulesPanel">
+                        Please register and login to get these additions:
+                        <br/>-Getting points
+                        <br/>-Getting level progress
+                        <br/>-Level progress allows you to unlock exclusive content
+                        <br/>-You take part in the ranking of players
+                        <br/>-You can unlock achievements that help your level progress
+                        <br/><br/>Contact: animdle.help@gmail.com
+                        <br/><br/>Enjoy ❤️
+                    </div>
+                )}
+            </div>
+<div className="SocialMediaContainer">
+    <a href="https://github.com/s22449pjJakubStyn?tab=repositories" target="blank"> <img src={git} className="Social" alt="Github icon"/></a>
+    <a href="https://www.linkedin.com/in/jakub-styn-9b8b3a20a/" target="blank">   <img src={linked} className="Social" alt="LinkedIn icon"/></a>
+</div>
+            <footer>
+                Credits: Jakub Styn:CEO & Creator, Grzegorz Styn: Content Searcher and Content Maker
+                <br/>
+                Project for studies subject non-profit. Animdle©2023
+            </footer>
             {isLoggedIn ? (
                 <div>
                     <div className="LevelContainer">

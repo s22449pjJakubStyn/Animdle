@@ -13,6 +13,7 @@ import {toast, ToastContainer} from "react-toastify";
 import register_logo from "../img/register_logo.png";
 import {AuthContext} from "./AuthContext";
 import {get, getDatabase, ref, update} from "firebase/database";
+import setting from "../img/setting.png";
 
 const QuoteMode = () => {
         const [randomCharacter, setRandomCharacter] = useState(null);
@@ -41,6 +42,12 @@ const QuoteMode = () => {
 
         const [isMenuOpen, setIsMenuOpen] = useState(false);
         const [isYourPointsOpen, setIsYourPointsOpen] = useState(false);
+
+        const [isPanelVisible, setIsPanelVisible] = useState(false);
+    const togglePanel = () => {
+        setIsPanelVisible(!isPanelVisible);
+    };
+
 
         const levelThresholds = [0, 0, 300, 700, 1200]; // Przykładowe progi punktów dla poziomów 0, 1, 2, 3
 
@@ -233,46 +240,46 @@ const QuoteMode = () => {
         }, []);
 
 
-    const unlockAchievement = async () => {
-        try {
-            const database = getDatabase();
-            const userRef = ref(database, `users/${currentUser.uid}`);
-            const snapshot = await get(userRef);
-            const userData = snapshot.val();
-            let updatedPoints = userData.points || 0;
-            if (!isNaN(updatedPoints)) {
-                try {
-                    const database = getDatabase();
-                    const achievementRef = ref(database, `users/achievements/Achievement 2`);
-                    const achievementSnapshot = await get(achievementRef);
-                    const achievementData = achievementSnapshot.val();
+        const unlockAchievement = async () => {
+            try {
+                const database = getDatabase();
+                const userRef = ref(database, `users/${currentUser.uid}`);
+                const snapshot = await get(userRef);
+                const userData = snapshot.val();
+                let updatedPoints = userData.points || 0;
+                if (!isNaN(updatedPoints)) {
+                    try {
+                        const database = getDatabase();
+                        const achievementRef = ref(database, `users/achievements/Achievement 2`);
+                        const achievementSnapshot = await get(achievementRef);
+                        const achievementData = achievementSnapshot.val();
 
-                    // Sprawdź, czy osiągnięcie jeszcze nie zostało odblokowane przez użytkownika
-                    if (!achievementData || !achievementData.userUID || !achievementData.userUID.includes(currentUser.uid)) {
-                        // Inicjalizuj tablicę userUID, jeśli nie istnieje
-                        if (!achievementData || !achievementData.userUID) {
-                            achievementData.userUID = [];
+                        // Sprawdź, czy osiągnięcie jeszcze nie zostało odblokowane przez użytkownika
+                        if (!achievementData || !achievementData.userUID || !achievementData.userUID.includes(currentUser.uid)) {
+                            // Inicjalizuj tablicę userUID, jeśli nie istnieje
+                            if (!achievementData || !achievementData.userUID) {
+                                achievementData.userUID = [];
+                            }
+
+                            // Dodaj UID aktualnie zalogowanego użytkownika do pola 'userUID' osiągnięcia
+                            achievementData.userUID.push(currentUser.uid);
+
+                            // Zaktualizuj pole 'userUID' osiągnięcia w bazie danych
+                            await update(achievementRef, {userUID: achievementData.userUID});
+                            updatedPoints += 10; // 1 raz: 50 punktów
+                            toast.success("Well done, you've unlocked the '🤯 How Much?!' achievement! You have been awarded 10 points");
                         }
-
-                        // Dodaj UID aktualnie zalogowanego użytkownika do pola 'userUID' osiągnięcia
-                        achievementData.userUID.push(currentUser.uid);
-
-                        // Zaktualizuj pole 'userUID' osiągnięcia w bazie danych
-                        await update(achievementRef, {userUID: achievementData.userUID});
-                        updatedPoints += 10; // 1 raz: 50 punktów
-                        toast.success("Well done, you've unlocked the '🤯 How Much?!' achievement! You have been awarded 10 points");
+                    } catch (error) {
+                        console.error('Error updating achievement', error);
                     }
-                } catch (error) {
-                    console.error('Error updating achievement', error);
+                    await update(userRef, {points: updatedPoints});
+                } else {
+                    console.error('Invalid user points value');
                 }
-                await update(userRef, {points: updatedPoints});
-            } else {
-                console.error('Invalid user points value');
+            } catch (error) {
+                console.error('Error updating user points in the database', error);
             }
-        } catch (error) {
-            console.error('Error updating user points in the database', error);
-        }
-    };
+        };
 
         useEffect(() => {
             if (currentPoints >= 100) {
@@ -288,20 +295,18 @@ const QuoteMode = () => {
                 const userData = snapshot.val();
                 let updatedLevel = userData.level || 1;
 
-                await update(userRef, { level: updatedLevel+1 });
+                await update(userRef, {level: updatedLevel + 1});
             } catch (error) {
                 console.error('Error updating user points in the database', error);
             }
         }
 
         useEffect(() => {
-            if (currentPoints >= 300 && currentLevel <2) {
+            if (currentPoints >= 300 && currentLevel < 2) {
                 upgradeLevel();
-            }
-            else if (currentPoints >= 700 && currentLevel <3) {
+            } else if (currentPoints >= 700 && currentLevel < 3) {
                 upgradeLevel();
-            }
-            else if (currentPoints >= 1200 && currentLevel <4) {
+            } else if (currentPoints >= 1200 && currentLevel < 4) {
                 upgradeLevel();
             }
         }, [currentPoints]);
@@ -391,6 +396,20 @@ const QuoteMode = () => {
                 <Link to="/">
                     <img src={animdle_logo2} className="Logo" alt="logo"/>
                 </Link>
+                <div className="RulesButton">
+                    <img src={setting} className="" alt="Settings" onClick={togglePanel}/>
+                    {isPanelVisible && (
+                        <div className="RulesPanel">
+                            Avalaible anime:
+                            <br/> Naruto, Bleach, One Punch Man, Demon Slayer,SAO and Attack On Titan.
+                            <br/><br/>1 attempt: 50 points.
+                            <br/>2-5 attempts: 20 points
+                            <br/>6-10 attempts: 8 points
+                            <br/>more than 10 attempts: 3 points.
+                            <br/><br/>Play and enjoy ❤️
+                        </div>
+                    )}
+                </div>
                 <div className="AttemptsCounter">Attempts: {attempts}</div>
                 {attempts >= 5 && randomCharacter.hintEasy && (
                     <div className="Hint">Little hint: {randomCharacter.hintEasy}</div>
@@ -486,7 +505,7 @@ const QuoteMode = () => {
                         <div className="LevelContainer">
                             <span className="ProgressTitle">Progress: {currentPoints} / {nextThreshold}</span>
                             <div className="BarLook">
-                                <div className="BarProgress" style={{ width: `${progress}%` }} />
+                                <div className="BarProgress" style={{width: `${progress}%`}}/>
                             </div>
                         </div>
                         <button className="UserName" onClick={handleMenuClick}>
@@ -501,14 +520,18 @@ const QuoteMode = () => {
                                     <div className="YourPoints">Points: {currentPoints}</div>
                                 )}
                                 <div className="YourPoints">Level: {currentLevel}</div>
-                                <Link to="/account"><button className="MenuItem"> Account</button></Link>
+                                <Link to="/account">
+                                    <button className="MenuItem"> Account</button>
+                                </Link>
                                 <Link to="/ranking">
                                     <button className="MenuItem"> Players Ranking</button>
                                 </Link>
                                 <Link to="/achievements">
                                     <button className="MenuItem"> Your Achievements</button>
                                 </Link>
-                                <Link to="/shop"><button className="MenuItem"> Shop</button></Link>
+                                <Link to="/shop">
+                                    <button className="MenuItem"> Shop</button>
+                                </Link>
                             </div>
                         )}
                         <button onClick={handleLogout} className="Logout">Logout</button>

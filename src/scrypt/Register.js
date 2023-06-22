@@ -14,12 +14,16 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import register_logo from "../img/register_logo.png";
 import {AuthContext} from "./AuthContext";
+import setting from "../img/setting.png";
 initializeApp(firebaseConfig);
 
 const Register = () => {
     const { isLoggedIn} = useContext(AuthContext);
     const [error, setError] = useState(null);
-
+    const [isPanelVisible, setIsPanelVisible] = useState(false);
+    const togglePanel = () => {
+        setIsPanelVisible(!isPanelVisible);
+    };
     const handleSubmit = async (values, { resetForm }) => {
         const { email, password, fName, lName, points, nickName, level } = values;
 
@@ -81,6 +85,18 @@ const Register = () => {
             <Link to="/">
                 <img src={animdle_logo2} className="Logo" alt="logo" />
             </Link>
+            <div className="RulesButton">
+                <img src={setting} className="" alt="Settings" onClick={togglePanel}/>
+                {isPanelVisible && (
+                    <div className="RulesPanel">
+                        To correct register make sure that:
+                        <br/>-Your email has correct format (a@.pl)
+                        <br/>-Your password is 8 characters long with 1 big and small letter, 1 number and 1 special char
+                        <br/>-Your name, surname and nick has at least 3 letters
+                        <br/><br/>Enjoy ❤️
+                    </div>
+                )}
+            </div>
             {isLoggedIn ? (
                 <div className="IsLogged"> You are logged go to mainpage</div>
             ) : (
