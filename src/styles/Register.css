@@ -1,5 +1,4 @@
-/* Register.css */
-
+@import url('https://fonts.googleapis.com/css?family=Luckiest Guy');
 .RegisterContainer {
     display: flex;
     flex-direction: column;
