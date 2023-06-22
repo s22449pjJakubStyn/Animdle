@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "Luckiest Guy";
+  src: url(luckiestguy.ttf) format("truetype");
+}
 .App {
   position: relative;
   display: flex;

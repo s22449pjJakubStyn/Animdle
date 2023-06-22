@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Luckiest Guy');
+@font-face {
+    font-family: "Luckiest Guy";
+    src: url(luckiestguy.ttf) format("truetype");
+}
 body{
     font-family: "Luckiest Guy";
 }
